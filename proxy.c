@@ -148,7 +148,38 @@ inline int connect_endServer(char *hostname,int port,char *http_header){
     return Open_clientfd(hostname,portStr);
 }
 
-/*parse the uri to get hostname,file path ,port*/
+
+void parse_uri(char *uri, char *hostname, char *path, int *port)
+{
+  /* default webserver host, port */
+  strcpy(hostname, "localhost");
+  strcpy(port, "8080");
+
+  /* http:// 이후의 host:port/path parsing */
+  char *pos = strstr(uri, "//");
+  pos = pos != NULL ? pos + 2 : uri;
+
+  /* host: 이후의 port/path parsing*/
+  char *pos2 = strstr(pos, ":");
+
+  /* port 번호를 포함하여 요청했다면  */
+  if (pos2 != NULL)
+  {
+    *pos2 = '\0';
+    sscanf(pos2 + 1, "%s%s", port, path); // 숫자는 port에 이후 문자열은 path에 저장
+  }
+  else /* port 번호가 없이 요청 왔다면 */
+  {
+    pos2 = strstr(pos, "/");
+    if (pos2 != NULL) // path를 통해 특정 자원에 대한 요청이 있을 경우
+    {
+      sscanf(pos2, "%s", path); // pos2 위치의 문자열을 path에 저장함
+    }
+  }
+  return;
+}
+
+/*parse the uri to get hostname,file path ,port
 void parse_uri(char *uri,char *hostname,char *path,int *port)
 {
     *port = 80;
@@ -180,3 +211,4 @@ void parse_uri(char *uri,char *hostname,char *path,int *port)
     }
     return;
 }
+*/
