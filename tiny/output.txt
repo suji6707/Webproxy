@@ -1,0 +1,203 @@
+Accepted connection from (localhost, 39654)
+GET / HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Purpose: prefetch
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 39656)
+GET /godzilla.gif HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Purpose: prefetch
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8000/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 39670)
+GET /home.html HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 41966)
+GET /home.html HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 41970)
+GET /godzilla.gif HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8000/home.html
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 59858)
+GET /test.mpg HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Purpose: prefetch
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 59870)
+GET /test.mpg HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 59876)
+Accepted connection from (localhost, 39076)
+GET /home.html HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 39086)
+GET /godzilla.gif HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: http://localhost:8000/home.html
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 39102)
+Accepted connection from (localhost, 49774)
+GET /cgi-bin/adder?1234&1234 HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWRiMGNmNmRlOGZjNDdiOTg5YTJjMDhkM2I2N2ZhN2I=|28b5f642a69b119ed3f978f02d642f2d4622203fe56085fe4a1a24d88a17da50"
+
+Accepted connection from (localhost, 49786)
+Accepted connection from (localhost, 49790)
+Accepted connection from (localhost, 50684)
+GET /cgi-bin/adder?4567&1234 HTTP/1.1
+Host: localhost:8000
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: username-localhost-8889="2|1:0|10:1679913525|23:username-localhost-8889|44:YTA5OTRmYmQ3NzBjNDNmZDg1OTEwNGYwMDNlZjg2MmM=|9083703fe4a59caeb1955242782d53f3722199039ce85588d5d77b44a67e08f5"; username-localhost-8888="2|1:0|10:1680141210|23:username-localhost-8888|44:ZWR

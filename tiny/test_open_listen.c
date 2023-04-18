@@ -41,7 +41,7 @@ int open_listenfd(char *port)
     - listen()은 listening socket이 다가올 연결요청을 받을 준비시키는 것이고.
         클라이언트가 연결하려 하면, 서버의 listening socket이 클라이언트로부터 SYN 패킷을 받아
         3-way handshake가 시작된다. 
-        이후 커넥션을 accept하기 위해 서버는 accept() functionㅇ르 쓴다.
+        이후 커넥션을 accept하기 위해 서버는 accept() function을 쓴다.
     */
     if (listen(listenfd, LISTENQ) < 0) {
         Close(listenfd);
