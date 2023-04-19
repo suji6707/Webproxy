@@ -12,7 +12,7 @@ static const char *new_version = "HTTP/1.0";
 void *thread(void *vargp);
 void doit(int connfd);
 void parse_uri(char *uri, char *hostname, char *path, int *port);
-void do_request(int clientfd, char *method, char *path, char *host);
+void do_request(char *clientfd, char *method, char *path, char *host);
 void do_response(int connfd, int clientfd);
 void sigchld_handler(int sig);
 
@@ -85,9 +85,9 @@ void sigchld_handler(int sig)
 void doit(int connfd)
 {
     int clientfd;
+    int port;
     char buf[MAXLINE],
          host[MAXLINE],
-         port[MAXLINE],
          method[MAXLINE],
          uri[MAXLINE],
          version[MAXLINE],
@@ -102,9 +102,11 @@ void doit(int connfd)
     sscanf(buf, "%s %s %s", method, uri, version);
 
     /* Parse uri */
-    parse_uri(uri, host, path, port);  // uri 외에는 전부 파싱해서 받아올 인자들(uri = input, 나머지 = output of parse_uri function)
+    parse_uri(uri, host, path, &port);  // uri 외에는 전부 파싱해서 받아올 인자들(uri = input, 나머지 = output of parse_uri function)
+    char portStr[16];
+    sprintf(portStr, "%d", port);
+    clientfd = Open_clientfd(host, portStr);
 
-    clientfd = Open_clientfd(host, port);
     do_request(clientfd, method, path, host); 
     
     do_response(connfd, clientfd);
@@ -112,8 +114,9 @@ void doit(int connfd)
     Close(clientfd);
 }
 
+
 /* proxy -> server : clientfd에 buf의 모든 내용을 담았음 */
-void do_request(int clientfd, char *method, char *path, char *host)
+void do_request(char *clientfd, char *method, char *path, char *host)
 {
     char buf[MAXLINE];
 
@@ -146,7 +149,7 @@ void do_response(int connfd, int clientfd)
 
 
 /* 파싱: 자료형 중요. port만 int임! (format %d) */
-void parse_uri(char *uri, char *hostname, char *path, int *port)
+void parse_uri(char* uri, char* hostname, char* path, int* port)
 {
   /* default webserver host, port */
   strcpy(hostname, "localhost");
