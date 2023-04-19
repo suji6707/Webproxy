@@ -11,7 +11,7 @@ static const char *new_version = "HTTP/1.0";
 
 void *thread(void *vargp);
 void doit(int connfd);
-void parse_uri(char uri, char hostname, char path, char port);
+void parse_uri(char *uri, char *hostname, char *path, int *port);
 void do_request(int clientfd, char *method, char *path, char *host);
 void do_response(int connfd, int clientfd);
 void sigchld_handler(int sig);
@@ -146,12 +146,12 @@ void do_response(int connfd, int clientfd)
 
 
 /* 파싱: 자료형 중요. port만 int임! (format %d) */
-void parse_uri(char uri, char hostname, char path, char port)
+void parse_uri(char *uri, char *hostname, char *path, int *port)
 {
   /* default webserver host, port */
   strcpy(hostname, "localhost");
-  // *port = 8080;     // 반드시 엔드서버 tiny.c는 8080으로 열어야.
-  strcpy(port, "8080"); 
+  *port = 8080;     // 반드시 엔드서버 tiny.c는 8080으로 열어야.
+//   strcpy(port, "8080"); 
 
   /* http:// 이후의 host:port/path parsing */
   char *pos = strstr(uri, "//");
