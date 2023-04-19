@@ -6,26 +6,19 @@
 
 /* You won't lose style points for including this long line in your code */
 static const char *user_agent_hdr = "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:10.0.3) Gecko/20120305 Firefox/10.0.3\r\n";
-static const char *conn_hdr = "Connection: close\r\n";
-static const char *prox_hdr = "Proxy-Connection: close\r\n";
-static const char *host_hdr_format = "Host: %s\r\n";
-static const char *requestlint_hdr_format = "GET %s HTTP/1.0\r\n";
-static const char *endof_hdr = "\r\n";
+static const char *new_version = "HTTP/1.0";
 
-static const char *connection_key = "Connection";
-static const char *user_agent_key= "User-Agent";
-static const char *proxy_connection_key = "Proxy-Connection";
-static const char *host_key = "Host";
+
 void *thread(void *vargp);
-
 void doit(int connfd);
-void parse_uri(char *uri,char *hostname,char *path,int *port);
-void build_http_header(char *http_header,char *hostname,char *path,int port,rio_t *client_rio);
-int connect_endServer(char *hostname,int port,char *http_header);
+void parse_uri(char uri, char hostname, char path, char port);
+void do_request(int clientfd, char *method, char *path, char *host);
+void do_response(int connfd, int clientfd);
+void sigchld_handler(int sig);
 
 int main(int argc,char **argv)
 {
-    int listenfd,connfd;
+    int listenfd, *connfdp;
     socklen_t  clientlen;
     char hostname[MAXLINE],port[MAXLINE];
     pthread_t tid;
@@ -36,124 +29,129 @@ int main(int argc,char **argv)
         exit(1);
     }
 
+    Signal(SIGCHLD, sigchld_handler);
+
     listenfd = Open_listenfd(argv[1]);
+    printf("%d\n", listenfd);
+
     while(1){
         clientlen = sizeof(clientaddr);
-        connfd = Accept(listenfd,(SA *)&clientaddr,&clientlen);
 
-        /*print accepted message*/
-        Getnameinfo((SA*)&clientaddr,clientlen,hostname,MAXLINE,port,MAXLINE,0);
+        connfdp = Malloc(sizeof(int));
+        *connfdp = Accept(listenfd, (SA *)&clientaddr, &clientlen);  /* Accept는 연결요청이 listenfd에 도착하면 addr에 클라이언트 주소를 채우고, SA* 구조체로 type casting */
+        printf("%p %d\n", connfdp, *connfdp);
+
+        /* SA(소켓주소) -> hostname, port */
+        Getnameinfo((SA*)&clientaddr, clientlen, hostname, MAXLINE, port, MAXLINE, 0);
+        /* print accepted message */
         printf("Accepted connection from (%s %s).\n",hostname,port);
-        Pthread_create(&tid,NULL,thread,(void *)connfd);
+
+        Pthread_create(&tid, NULL, thread, (void *)connfdp);
         /*sequential handle the client transaction*/
     }
     return 0;
 }
+
+
 void *thread(void *vargp){
-    int connfd = (int)vargp;
-    Pthread_detach(pthread_self());
+    int connfd = *((int *)vargp);       
+    Pthread_detach(pthread_self());     // main <-> peer thread 분리
+    Free(vargp);                        // main에서 받은 메모리공간 해제
+    
     doit(connfd);
     Close(connfd);
 }
-/*handle the client HTTP transaction*/
+
+
+void sigchld_handler(int sig)
+{ 
+    while (waitpid(-1, 0, WNOHANG) > 0)
+        ;
+    return;
+}
+
+  /* 
+  Before Parsing (Client로부터 받은 Request Line)
+  => GET http://www.google.com:80/index.html HTTP/1.1
+  Result Parsing
+  => host = www.google.com
+  => port = 8080
+  => path = /index.html
+  After Parsing (Server로 보낼 Request Line)
+  => GET /index.html HTTP/1.0 
+  */ 
+ 
+/* thread 루틴. handle the client HTTP transaction*/
 void doit(int connfd)
 {
-    int end_serverfd;/*the end server file descriptor*/
+    int clientfd;
+    char buf[MAXLINE],
+         host[MAXLINE],
+         port[MAXLINE],
+         method[MAXLINE],
+         uri[MAXLINE],
+         version[MAXLINE],
+         path[MAXLINE];
+    rio_t rio;      //  rio_readlineb를 위해 rio_t 타입(구조체)의 읽기 버퍼를 선언
 
-    char buf[MAXLINE],method[MAXLINE],uri[MAXLINE],version[MAXLINE];
-    char endserver_http_header [MAXLINE];
-    /*store the request line arguments*/
-    char hostname[MAXLINE],path[MAXLINE];
-    int port;
+    /* client -> proxy : connfd로부터 request line 읽기 */
+    Rio_readinitb(&rio, connfd); // connfd -> rio 
+    Rio_readlineb(&rio, buf, MAXLINE);  // rio(==proxy의 connfd)에 있는 한 줄(응답 라인)을 모두 buf로 옮긴다.
+    // client -> proxy
+    printf("Request headers to proxy:\n");
+    sscanf(buf, "%s %s %s", method, uri, version);
 
-    rio_t rio,server_rio;/*rio is client's rio,server_rio is endserver's rio*/
+    /* Parse uri */
+    parse_uri(uri, host, path, port);  // uri 외에는 전부 파싱해서 받아올 인자들(uri = input, 나머지 = output of parse_uri function)
 
-    Rio_readinitb(&rio,connfd);
-    Rio_readlineb(&rio,buf,MAXLINE);
-    sscanf(buf,"%s %s %s",method,uri,version); /*read the client request line*/
+    clientfd = Open_clientfd(host, port);
+    do_request(clientfd, method, path, host); 
+    
+    do_response(connfd, clientfd);
 
-    if(strcasecmp(method,"GET")){
-        printf("Proxy does not implement the method");
-        return;
-    }
-    /*parse the uri to get hostname,file path ,port*/
-    parse_uri(uri,hostname,path,&port);
-
-    /*build the http header which will send to the end server*/
-    build_http_header(endserver_http_header,hostname,path,port,&rio);
-
-    /*connect to the end server*/
-    end_serverfd = connect_endServer(hostname,port,endserver_http_header);
-    if(end_serverfd<0){
-        printf("connection failed\n");
-        return;
-    }
-
-    Rio_readinitb(&server_rio,end_serverfd);
-    /*write the http header to endserver*/
-    Rio_writen(end_serverfd,endserver_http_header,strlen(endserver_http_header));
-
-    /*receive message from end server and send to the client*/
-    size_t n;
-    while((n=Rio_readlineb(&server_rio,buf,MAXLINE))!=0)
-    {
-        printf("proxy received %d bytes,then send\n",n);
-        Rio_writen(connfd,buf,n);
-    }
-    Close(end_serverfd);
+    Close(clientfd);
 }
 
-void build_http_header(char *http_header,char *hostname,char *path,int port,rio_t *client_rio)
+/* proxy -> server : clientfd에 buf의 모든 내용을 담았음 */
+void do_request(int clientfd, char *method, char *path, char *host)
 {
-    char buf[MAXLINE],request_hdr[MAXLINE],other_hdr[MAXLINE],host_hdr[MAXLINE];
-    /*request line*/
-    sprintf(request_hdr,requestlint_hdr_format,path);
-    /*get other request header for client rio and change it */
-    while(Rio_readlineb(client_rio,buf,MAXLINE)>0)
-    {
-        if(strcmp(buf,endof_hdr)==0) break;/*EOF*/
+    char buf[MAXLINE];
 
-        if(!strncasecmp(buf,host_key,strlen(host_key)))/*Host:*/
-        {
-            strcpy(host_hdr,buf);
-            continue;
-        }
+    printf("Request headers to server: \n");
+    printf("%s %s %s\n", method, path, new_version);  // GET path HTTP 1.0
 
-        if(!strncasecmp(buf,connection_key,strlen(connection_key))
-                &&!strncasecmp(buf,proxy_connection_key,strlen(proxy_connection_key))
-                &&!strncasecmp(buf,user_agent_key,strlen(user_agent_key)))
-        {
-            strcat(other_hdr,buf);
-        }
-    }
-    if(strlen(host_hdr)==0)
-    {
-        sprintf(host_hdr,host_hdr_format,hostname);
-    }
-    sprintf(http_header,"%s%s%s%s%s%s%s",
-            request_hdr,
-            host_hdr,
-            conn_hdr,
-            prox_hdr,
-            user_agent_hdr,
-            other_hdr,
-            endof_hdr);
+    /* Read request headers (서버에 보낼 내용을 buf에 저장) */
+    sprintf(buf, "GET %s %s\r\n", path, new_version); // GET /index.html HTTP/1.0
+    sprintf(buf, "%sHost: %s\r\n", buf, host);        // Host: www.google.com
+    sprintf(buf, "%s%s", buf, user_agent_hdr);
+    sprintf(buf, "%sConnections: close\r\n", buf);
+    sprintf(buf, "%sProxy-Connection: close\r\n\r\n", buf);
 
-    return ;
+    /* 실제로 보내는 부분. buf -> clientfd로 strlen(buf) byte 전송 */
+    Rio_writen(clientfd, buf, (size_t)strlen(buf));
 }
-/*Connect to the end server*/
-inline int connect_endServer(char *hostname,int port,char *http_header){
-    char portStr[100];
-    sprintf(portStr,"%d",port);
-    return Open_clientfd(hostname,portStr);
+
+/* server -> proxy : clientfd에 담긴 내용을 connfd에 담아 보냄*/
+void do_response(int connfd, int clientfd)
+{
+    char buf[MAX_CACHE_SIZE];
+    ssize_t n;
+    rio_t rio;
+
+    /* clientfd -> rio -> buf -> connfd */
+    Rio_readinitb(&rio, clientfd);
+    n = Rio_readnb(&rio, buf, MAX_CACHE_SIZE);  
+    Rio_writen(connfd, buf, n);
 }
 
 
-void parse_uri(char *uri, char *hostname, char *path, int *port)
+/* 파싱: 자료형 중요. port만 int임! (format %d) */
+void parse_uri(char uri, char hostname, char path, char port)
 {
   /* default webserver host, port */
   strcpy(hostname, "localhost");
-  strcpy(port, "8080");
+  // *port = 8080;     // 반드시 엔드서버 tiny.c는 8080으로 열어야.
+  strcpy(port, "8080"); 
 
   /* http:// 이후의 host:port/path parsing */
   char *pos = strstr(uri, "//");
@@ -166,7 +164,7 @@ void parse_uri(char *uri, char *hostname, char *path, int *port)
   if (pos2 != NULL)
   {
     *pos2 = '\0';
-    sscanf(pos2 + 1, "%s%s", port, path); // 숫자는 port에 이후 문자열은 path에 저장
+    sscanf(pos2 + 1, "%d%s", port, path); // 숫자는 port에 이후 문자열은 path에 저장
   }
   else /* port 번호가 없이 요청 왔다면 */
   {
@@ -178,37 +176,3 @@ void parse_uri(char *uri, char *hostname, char *path, int *port)
   }
   return;
 }
-
-/*parse the uri to get hostname,file path ,port
-void parse_uri(char *uri,char *hostname,char *path,int *port)
-{
-    *port = 80;
-    char* pos = strstr(uri,"//");
-
-    pos = pos!=NULL? pos+2:uri;
-
-    char*pos2 = strstr(pos,":");
-    if(pos2!=NULL)
-    {
-        *pos2 = '\0';
-        sscanf(pos,"%s",hostname);
-        sscanf(pos2+1,"%d%s",port,path);
-    }
-    else
-    {
-        pos2 = strstr(pos,"/");
-        if(pos2!=NULL)
-        {
-            *pos2 = '\0';
-            sscanf(pos,"%s",hostname);
-            *pos2 = '/';
-            sscanf(pos2,"%s",path);
-        }
-        else
-        {
-            sscanf(pos,"%s",hostname);
-        }
-    }
-    return;
-}
-*/
